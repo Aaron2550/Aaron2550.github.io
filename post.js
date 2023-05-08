@@ -24,6 +24,4 @@ document.addEventListener('keyup', (event) => {
 
   root.style.setProperty("--font", font);
   Cookies.set("font", font, { path: "uraniumhexafluori.de" });
-  
-  isUsingSerifFont = !isUsingSerifFont;
 }, false);
