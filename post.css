@@ -4,10 +4,6 @@
   --font: 'Noto Sans', sans-serif;
 }
 
-* {
-  font-family: var(--font);
-}
-
 html, body {
   width: 100%;
   height: 100%;
@@ -15,6 +11,8 @@ html, body {
   margin: 0;
   
   background-color: rgb(128, 32, 32);
+  
+  font-family: var(--font);
 }
 
 p, h1 {
@@ -31,8 +29,11 @@ h1 {
   font-size: 150%;
 }
 
-code {
+code, code * {
   font-family: 'Fira Code', monospace;
+}
+
+code {
   border: 1px solid rgb(240, 240, 240);
 }
 
