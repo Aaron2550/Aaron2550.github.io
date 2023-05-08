@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans&family=Noto+Serif&display=swap');
+
+:root {
+  --font: 'Noto Sans', sans-serif;
+}
+
+* {
+  font-family: var(--font);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  
+  margin: 0;
+  
+  background-color: rgb(128, 32, 32);
+}
+
+p, h1 {
+  color: rgb(240, 240, 240);
+  margin: 0;
+}
+
+p {
+  font-size: 110%;
+}
+
+h1 {
+  text-align: center;
+  font-size: 150%;
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  border: 1px solid rgb(240, 240, 240);
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: rgb(128, 32, 32);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
+}
+
+.Container {
+  display: grid;
+  
+  grid-template-columns: 0.2fr 2.8fr 0.2fr;
+  grid-template-rows: 1fr;
+  
+  gap: 0px 0px;
+  
+  grid-auto-flow: row;
+  grid-template-areas: ". MainArea .";
+  
+  width: 100%;
+  height: 100%;
+  
+  margin: 0;
+}
+
+.MainArea {
+  grid-area: MainArea;
+  
+  background: rgb(24,24,24);
+  background: linear-gradient(90deg, rgba(24,24,24,1) 0%, rgba(32,32,32,1) 10%, rgba(32,32,32,1) 90%, rgba(24,24,24,1) 100%);
+  
+  border-left: 1px solid rgb(240, 240, 240);
+  border-right: 1px solid rgb(240, 240, 240);
+  
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+}

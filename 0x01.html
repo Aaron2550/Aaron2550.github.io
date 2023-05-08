@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>A Basic HTML5 Template</title>
+    <meta name="description" content="0x01 - Creating Private and Public Keys using Vanilla C#">
+    <meta name="author" content="AaronVB#6662">
+
+    <link rel="stylesheet" href="post.css">
+    <link rel="stylesheet" href="eighties.min.css">
+  </head>
+
+  <body>
+    <div class="Container">
+      <div class="MainArea">
+        <h1>0x01</h1>
+        <h1>Creating Private and Public Keys using Vanilla C##</h1>
+        
+        <br>
+        <br>
+        
+        <p>Cryptography is an essential aspect of modern computing, particularly when it comes to securing data and communications.</p>
+        <p>One important part is the ECDsa class, which allows you to create and manage <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">Elliptic Curve Digital Signature Algorithm (ECDSA)</a> keys.</p>
+        
+        <p>Here's an example of how to use C#'s ECDsa class to create and export private and public keys in the PEM format:</p>
+        <pre><code class="language-csharp">using System.Security.Cryptography;
+
+using ECDsa Ecdsa = ECDsa.Create(ECCurve.NamedCurves.brainpoolP512t1);
+
+File.WriteAllText("Private.pem", Ecdsa.ExportECPrivateKeyPem());
+// Or
+File.WriteAllText("Private.pem", Ecdsa.ExportEncryptedPkcs8PrivateKeyPem("Password!", new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA512, 10000)));
+
+File.WriteAllText("Public.pem", Ecdsa.ExportSubjectPublicKeyInfoPem());</code></pre>
+        
+        <p>With just a few lines of code, you can export private and public keys in various formats and leverage the power of ECDSA to secure your applications and protect your data with ease.</p>
+        <p>To do the same with <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA</a>, instead of with an Elliptic Curve, you can use this example:</p>
+        <pre><code class="language-csharp">using System.Security.Cryptography;
+
+using RSA Rsa = RSA.Create(4096);
+
+File.WriteAllText("Private.pem", Rsa.ExportRSAPrivateKeyPem());
+// Or
+File.WriteAllText("Private.pem", Rsa.ExportEncryptedPkcs8PrivateKeyPem("Password!", new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA512, 10000)));
+
+File.WriteAllText("Public.pem", Rsa.ExportSubjectPublicKeyInfoPem());</code></pre>
+
+        <p>What to use... RSA or Elliptic Curves? NIST or BrainPool Curves?</p>
+
+        <br>
+
+        <p>When it comes to choosing between RSA and elliptic curves for cryptographic operations, there is no clear answer as to which one is better. Both RSA and elliptic curves are widely used and have their own advantages and disadvantages.</p>
+        
+        <br>
+        
+        <p>RSA is well-established and widely adopted. It's been in use for several decades and is tried-and-true.</p>
+        <p>Elliptic curves, on the other hand, are a newer cryptographic tool that offer similar security with smaller key sizes, making them more efficient and faster than RSA.</p>
+        <p>Additionally, elliptic curves are less vulnerable to certain types of attacks, such as those based on <a href="https://en.wikipedia.org/wiki/Shor%27s_algorithm">Shor's algorithm</a>.</p>
+
+        <br>
+
+        <p>In the end, the choice between RSA and elliptic curves depends on the specific requirements of the cryptographic application.</p>
+        <p>If speed and efficiency are important, then elliptic curves may be a better choice. If familiarity and well-established security are more important, then RSA may be the way to go.</p>
+        
+        <br>
+        
+        <p>It's always a good idea to consult with a cryptography expert to determine which algorithm is best suited for your needs, and i certainly am not one of them.</p>
+      </div>
+    </div>
+
+    <script src="post.js"></script>
+    <script src="highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>A Basic HTML5 Template</title>
+    <meta name="description" content="0x00 - Creating x509 Certificates using Vanilla C#">
+    <meta name="author" content="AaronVB#6662">
+
+    <link rel="stylesheet" href="post.css">
+    <link rel="stylesheet" href="eighties.min.css">
+  </head>
+
+  <body>
+    <div class="Container">
+      <div class="MainArea">
+        <h1>0x00</h1>
+        <h1>Creating x509 Certificates using Vanilla C#</h1>
+        
+        <br>
+        <br>
+        
+        <p>For a while now, I've been attempting to create certificates that I can use with C#'s SslStream.</p>
+        <p>Unfortunately, most of the methods and libraries I've tried, such as <a href="https://www.bouncycastle.org/">BouncyCastle</a>, have not worked for me at all.</p>
+        <p>However, I recently discovered that it's actually quite simple in vanilla C# - you just need to know how to do it.</p>
+
+        <p>Here's everything you need to know:</p>
+        <pre><code class="language-csharp">using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
+
+CertificateRequest Request = new(new X500DistinguishedName("cn=Whatever"), RSA.Create(8192), HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
+X509Certificate2 Certificate = Request.CreateSelfSigned(DateTime.UtcNow.AddDays(-1), DateTime.UtcNow.AddYears(+1));
+File.WriteAllBytes("Certificate.pfx", Certificate.Export(X509ContentType.Pfx));</code></pre>
+        
+        <p>If you'd like to add alternative Subject Names or Key Usages, you can use this example:</p>
+        <pre><code class="language-csharp">SubjectAlternativeNameBuilder AlternativeNameBuilder = new();
+AlternativeNameBuilder.AddDnsName("localhost")
+Request.CertificateExtensions.Add(new X509EnhancedKeyUsageExtension(new OidCollection {
+  new("1.3.6.1.5.5.7.3.1") // Server Auth
+}, false));
+
+Request.CertificateExtensions.Add(new X509KeyUsageExtension(X509KeyUsageFlags.DigitalSignature, false));
+Request.CertificateExtensions.Add(AlternativeNameBuilder.Build());</code></pre>
+
+        <p>Compared to the approximately 20 lines of code required with BouncyCastle, this method is much easier.</p>
+        <p>Additionally, you won't need to download 3-15 <a href="https://www.nuget.org/packages/BouncyCastle.Cryptography">megabytes of libraries</a> to make it work.</p>
+        <p>When I tried using BouncyCastle, I ran into issues where my certificate wasn't recognized and I received the error message <pre><code class="language-plaintext">Win32Exception: The credentials passed to the package were not recognized</code></pre>.</p>
+        <p>However, I have not encountered this problem with the vanilla C# method outlined above.</p>
+        
+      </div>
+    </div>
+
+    <script src="post.js"></script>
+    <script src="highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+  </body>
+</html>
